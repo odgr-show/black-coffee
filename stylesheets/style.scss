@@ -4,11 +4,18 @@
   --header-color: #{$white};
   --rink-color: #{$black};
 
+  --menu-color: #{$white};
+  --menu-bg-color: #{$black};
+
+  --footer-bg-color: #{$black};
+  --footer-color: #{$white};
+
   --title-font: #{$font};
 }
 
 a {
   text-decoration: none;
+  color: var(--rink-color);
 }
 
 ul {
@@ -19,7 +26,11 @@ img {
   max-width: 100%;
 }
 
-.inner {
+section {
+  margin-bottom: 50px;
+}
+
+.container {
   width: min(100% - 16%, 800px);
   margin: 0 auto 50px;
 }
@@ -38,11 +49,15 @@ img {
   font-family: var(--title-font);
 }
 
-.text-content {
+.text-inner {
   width: min(100% - 8%, 500px);
-  text-align: start;
   margin: 0 auto;
-  // border: 1px solid #000;
+
+  &>p {
+    text-align: center;
+    text-wrap: balance;
+    word-break: auto-phrase;
+  }
 }
 
 // HEADER
@@ -56,7 +71,28 @@ img {
     justify-content: space-around;
 
     &_item>a {
-      color: var(--rink-color);
+      position: relative;
+      transition: opacity .2s;
+
+      &::before {
+        content: "";
+        display: block;
+        width: 100%;
+        height: 2px;
+        background: var(--rink-color);
+        position: absolute;
+        inset: 110% auto auto 0;
+        scale: 0 1;
+        transition: .2s ease-in-out;
+      }
+
+      &:hover {
+        opacity: .5;
+
+        &::before {
+          scale: 1;
+        }
+      }
     }
   }
 }
@@ -76,6 +112,14 @@ img {
 }
 
 // MENU
+.menu {
+  color: var(--menu-color);
+  padding-block: 30px;
+  background: var(--menu-bg-color);
+  box-shadow: 0 0 0 100vmax #000;
+  clip-path: inset(0 -100vmax);
+}
+
 table {
   margin: 0 auto;
 
@@ -87,24 +131,56 @@ table {
 // ASIDE
 aside {
 
-  & .text-content {
+  & .text-inner {
     margin-bottom: 50px;
   }
 
   & img {
     display: block;
-    width: 150px;
-    height: 150px;
-    margin: 0 auto 30px;
+    width: 100px;
+    margin: 0 auto;
+    margin-bottom: 30px;
   }
 
   & .btn {
     text-align: center;
 
     &>a {
-      padding: 20px 40px;
-      border: 1px solid #000;
-      border-radius: 8px;
+      position: relative;
+      display: inline-block;
+      padding: 1rem 2rem;
+      border: 2px solid var(--rink-color);
+      border-radius: 1rem;
+      overflow: hidden;
+
+      &::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: #0db;
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: .3s;
+
+        z-index: -1;
+      }
+
+      &:hover {
+        &::before {
+          transform: scaleX(1);
+        }
+      }
     }
   }
+}
+
+// -- FOOTER --
+footer {
+  text-align: center;
+  padding-block: 1rem;
+  color: var(--footer-color);
+  background: var(--footer-bg-color);
 }
